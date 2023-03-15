@@ -40,40 +40,45 @@ class TechApp(Tk):
     
     def __init__(self):
         super().__init__()
-
         self.title("Technix 2023")
         self.geometry("900x500")
+        self.mainpg()
 
+
+    def mainpg(self):
         mainframe=Frame(self)
         mainframe.pack()
+
+        #Top text
         self.label=Label(mainframe, text="Select the Event!!", pady='20')
         self.label.config(font=("Courier", 16,"bold"))
         self.label.pack()
 
+        #Drop down menu
         self.clicked=StringVar()
         self.clicked.set("-- Select --")
         self.drop=OptionMenu(mainframe, self.clicked, *option)
         self.drop.config(width=len(max(option, key=len))+10, height=2)
         self.drop.pack()
 
+        #Button
         self.button=Button(mainframe, text=" Open ", command=lambda: [mainframe.destroy(), self.open()]).pack(pady='20')
 
 
 
-
+    #Adds the Team Name to the list
     def add(self,i):
         tn=self.tree[i].selection()
-        self.teamlist.append(self.tree[i].item(tn)['values'])
+        if self.tree[i].item(tn)['values'] not in self.teamlist:
+            self.teamlist.append(self.tree[i].item(tn)['values'])
         print("List: ",self.teamlist)
     
+    #Removes the Team Name from the list
     def remove(self,i):
         tn=self.tree[i].selection()
         if self.tree[i].item(tn)['values'] in self.teamlist:
             self.teamlist.remove(self.tree[i].item(tn)['values'])
         print("List: ",self.teamlist)
-
-
-
 
 
 
@@ -83,15 +88,16 @@ class TechApp(Tk):
         note.pack()
 
         # Getting the total number of rounds in the event
-        noOfRounds=eventinfo[self.clicked.get()][0]
+        event=self.clicked.get()
+        noOfRounds=eventinfo[event][0]
 
-        # Generating frames and adding it to the NoteBook
         frames=[]
         self.txtmg=[]
         self.tree=[]
+        
+        # Generating frames and adding it to the NoteBook
         for i in range(noOfRounds+1):
             frames.append(Frame(note))
-        
             frames[i].pack(fill="both", expand=1)
 
             if i!=noOfRounds:
@@ -99,18 +105,21 @@ class TechApp(Tk):
             else:
                 self.txtmg.append("Winners")
 
+            note.add(frames[i], text=self.txtmg[i])
 
-            self.tree.append(ttk.Treeview(frames[i],column=("c1"), show="headings", height=8))
+
+            #Creating Treeview
+            self.tree.append(ttk.Treeview(frames[i], column=("c1"), show="headings", height=8))
             self.tree[i].column('c1', anchor="center")
             self.tree[i].heading('c1', text="Team Name")
 
-
-
-            value=gs.read(eventinfo[self.clicked.get()][1], self.txtmg[i])
+            #Reading the Team Name and Displaying it
+            value=gs.read(eventinfo[event][1], self.txtmg[i])
             for tname in value:
                 self.tree[i].insert('','end', values=str(tname[0]))
             self.tree[i].pack()
 
+            #Adding button for the rounds expect for the winners tab
             if i!=noOfRounds:
                 #hardcoded value
                 addbtn=Button(frames[i], text="Add", command=lambda: [self.add(0)])
@@ -118,15 +127,11 @@ class TechApp(Tk):
                 rembtn=Button(frames[i], text="Remove", command=lambda: [self.remove(0)])
                 #hardcoded value
                 #Delete value of teamlist
-                finbtn=Button(frames[i], text="Add To Next Round", command=lambda: [gs.write(eventinfo[self.clicked.get()][1], self.txtmg[1], self.teamlist)])
+                finbtn=Button(frames[i], text="Add To Next Round", command=lambda: [gs.write(eventinfo[event][1], self.txtmg[1], self.teamlist)])
                 addbtn.pack(pady=5)
                 rembtn.pack(pady=5)
                 finbtn.pack(pady=5)
 
-
-            note.add(frames[i], text=self.txtmg[i])
-        
-        # print(noOfRounds)
 
 
 
