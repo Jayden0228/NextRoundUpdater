@@ -76,18 +76,19 @@ class TechApp(Tk):
         print("List: ",self.teamlist)
         self.label[i]['text']='Team List: '
 
-        self.imglab.config(image='', pady=0)
-        self.note.destroy()
+        self.eventframe.destroy()
         self.open()
 
 
     def open(self):
+        self.eventframe=Frame(self)
+        self.eventframe.pack()
 
         self.img=ImageTk.PhotoImage(Image.open("Technix.png").resize((300,76), Image.ANTIALIAS))
-        self.imglab=Label(self, image=self.img)
+        self.imglab=Label(self.eventframe, image=self.img)
         self.imglab.pack(pady='9')
 
-        self.note=ttk.Notebook(self)
+        self.note=ttk.Notebook(self.eventframe)
         self.note.pack()
 
         # Getting the total number of rounds in the event
