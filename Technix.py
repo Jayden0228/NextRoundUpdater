@@ -75,15 +75,16 @@ class TechApp(Tk):
         self.pg=ttk.Progressbar(mainframe, length=100, orient=HORIZONTAL, mode='indeterminate')
 
         #Button
-        self.button=Button(mainframe, text=" Open ", command=lambda: [mainframe.destroy(),  self.btnthread()]).pack(pady='20')
+        self.button=Button(mainframe, text=" Open ", command=lambda: [mainframe.destroy(),  self.btnthread(self.open)]).pack(pady='20')
 
 
     # def progress(self):
     #     self.pg.pack(pady='5')
     #     self.pg.start(10)
 
-    def btnthread(self):
-        t=Thread(target=self.open)
+
+    def btnthread(self,x):
+        t=Thread(target=x)
         t.start()
 
     def listtostr(self, tl):
