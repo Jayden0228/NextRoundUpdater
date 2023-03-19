@@ -84,9 +84,13 @@ class TechApp(Tk):
         self.eventframe=Frame(self)
         self.eventframe.pack()
 
-        self.img=ImageTk.PhotoImage(Image.open("Technix.png").resize((300,76), Image.ANTIALIAS))
+        self.back=Button(self, text='Back', command=lambda:[self.eventframe.destroy(), self.mainpg(), self.back.destroy()])
+        # self.back.pack(padx=200, pady=200, side=LEFT)
+        self.back.place(x=70,y=20)
+
+        self.img=ImageTk.PhotoImage(Image.open("Technix.png").resize((300,85), Image.ANTIALIAS))
         self.imglab=Label(self.eventframe, image=self.img)
-        self.imglab.pack(pady='9')
+        self.imglab.pack(pady='12')
 
         self.note=ttk.Notebook(self.eventframe)
         self.note.pack()
