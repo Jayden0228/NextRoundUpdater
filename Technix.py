@@ -4,41 +4,7 @@ from PIL import Image, ImageTk
 import Gspread as gs
 from Logic import *
 
-option=["Competitive_Coding",
-        "Code_In_Chaos",
-        "Hackathon",
-        "TechQuiz",
-        "Escape_Room",
-        "Ideathon",
-        "UI/UX_Design_Challenge",
-        "Treasure_Hunt",
-        "Speed_Typing",
-        "Minecraft",
-        "FIFA",
-        "Reel_Making",
-        "Photography",
-        "Meme"
-        ]
-
-eventinfo={"Competitive_Coding":[3,''],
-        "Code_In_Chaos":[3,''],
-        "Hackathon":[3,''],
-        "TechQuiz":[3,''],
-        "Escape_Room":[3,''],
-        "Ideathon":[3,''],
-        "UI/UX_Design_Challenge":[3,''],
-        "Treasure_Hunt":[3,'1hqy6DJIA1F__bU21gByCBasToU_krenNGFycd3nCrpk'],
-        "Speed_Typing":[3,''],
-        "Minecraft":[3,''],
-        "FIFA":[3,''],
-        "Reel_Making":[3,''],
-        "Photography":[3,''],
-        "Meme":[3,'']
-        }
-
 # img=ImageTk.PhotoImage('Technix.jpeg')
-
-
 
 class TechApp(Tk):
 
@@ -56,9 +22,9 @@ class TechApp(Tk):
         mainframe=Frame(self)
         mainframe.pack()
         
-        img=ImageTk.PhotoImage(Image.open("Technix.png").resize((420,106), Image.ANTIALIAS))
-        self.img=Label(mainframe, image=img).pack(pady='5')
-        self.img=img
+        self.img=ImageTk.PhotoImage(Image.open("Technix.png").resize((420,106), Image.ANTIALIAS))
+        self.imglab=Label(mainframe, image=self.img)
+        self.imglab.pack(pady='5')
 
         #Top text
         self.label=Label(mainframe, text="Select the Event!!", pady='20')
@@ -72,16 +38,8 @@ class TechApp(Tk):
         self.drop.config(width=len(max(option, key=len))+10, height=2)
         self.drop.pack()
 
-        self.pg=ttk.Progressbar(mainframe, length=100, orient=HORIZONTAL, mode='indeterminate')
-
         #Button
         self.button=Button(mainframe, text=" Open ", command=lambda: [mainframe.destroy(), btnthread(self.open)]).pack(pady='20')
-
-
-    # def progress(self):
-    #     self.pg.pack(pady='5')
-    #     self.pg.start(10)
-
 
 
     #Adds the Team Name to the list
@@ -118,14 +76,16 @@ class TechApp(Tk):
         print("List: ",self.teamlist)
         self.label[i]['text']='Team List: '
 
+        self.imglab.config(image='', pady=0)
         self.note.destroy()
         self.open()
 
 
     def open(self):
-        img=ImageTk.PhotoImage(Image.open("Technix.png").resize((300,76), Image.ANTIALIAS))
-        self.img=Label(self, image=img).pack(pady='9')
-        self.img=img
+
+        self.img=ImageTk.PhotoImage(Image.open("Technix.png").resize((300,76), Image.ANTIALIAS))
+        self.imglab=Label(self, image=self.img)
+        self.imglab.pack(pady='9')
 
         self.note=ttk.Notebook(self)
         self.note.pack()
