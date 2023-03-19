@@ -36,7 +36,9 @@ eventinfo={"Competitive_Coding":[3,''],
         "Meme":[3,'']
         }
 
-# img=ImageTk.PhotoImage(Image.open('Technix.jpeg'))
+# img=ImageTk.PhotoImage('Technix.jpeg')
+
+
 
 class TechApp(Tk):
 
@@ -45,16 +47,18 @@ class TechApp(Tk):
     def __init__(self):
         super().__init__()
         self.title("Technix 2023")
-        self.geometry("900x500")
+        self.geometry("900x550")
         self.mainpg()
 
 
     def mainpg(self):
-
-        # mainframe=Frame(self, image=img)
+         
         mainframe=Frame(self)
         mainframe.pack()
         
+        img=ImageTk.PhotoImage(Image.open("Technix.png").resize((420,106), Image.ANTIALIAS))
+        self.img=Label(mainframe, image=img).pack(pady='5')
+        self.img=img
 
         #Top text
         self.label=Label(mainframe, text="Select the Event!!", pady='20')
@@ -122,6 +126,10 @@ class TechApp(Tk):
 
 
     def open(self):
+        img=ImageTk.PhotoImage(Image.open("Technix.png").resize((300,76), Image.ANTIALIAS))
+        self.img=Label(self, image=img).pack(pady='9')
+        self.img=img
+
         self.note=ttk.Notebook(self)
         self.note.winfo_geometry
         self.note.pack()
