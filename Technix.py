@@ -121,9 +121,11 @@ class TechApp(Tk):
 
             #Adding button for the rounds expect for the winners tab
             if i!=noOfRounds:
-                addbtn=Button(frames[i], text="Add To The List", command=self.add).pack(pady=5)
-                rembtn=Button(frames[i], text="Remove From The List", command=self.remove).pack(pady=5)
-                finbtn=Button(frames[i], text="Add To Next Round", command=lambda: self.moveToNxtRnd(event)).pack(pady=5)
+                Button(frames[i], text="Add To The List", command=self.add).pack(pady=5)
+                Button(frames[i], text="Remove From The List", command=self.remove).pack(pady=5)
+                Button(frames[i], text="Add To Next Round", command=lambda: self.moveToNxtRnd(event)).pack(pady=5)
+                # Button(frames[i], text="Add To Next Round", command=lambda: [btnthreadarg(self.moveToNxtRnd, (event))] ).pack(pady=5)
+
 
                 canvas=Canvas(frames[i], height=10)
                 canvas.create_line(0,10,1000,10,width=3)
