@@ -23,7 +23,8 @@ def read(id, rng):
         return values
 
     except HttpError as err:
-        print(err)
+        raise HttpError
+        # print(err)
 
     return values
 
@@ -41,6 +42,7 @@ def write(id,rng,value):
         request = sheet.values().update(spreadsheetId=id, range=rng+"!A1", valueInputOption="USER_ENTERED", body={"values":value}).execute()
 
     except HttpError as err:
-        print(err)
+        raise HttpError
+        # print(err)
 
 
