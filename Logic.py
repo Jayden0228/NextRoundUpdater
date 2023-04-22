@@ -36,6 +36,10 @@ def btnthread(x):
     t=Thread(target=x)
     t.start()
 
+def btnthreadarg(x, arg):
+    t=Thread(target=x, args=arg)
+    t.start()
+
 def listtostr(tl):
     strg=""
     for x in tl:
